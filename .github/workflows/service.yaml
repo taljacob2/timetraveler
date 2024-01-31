@@ -9,10 +9,8 @@ jobs:
         run: |
           echo GITHUB_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
           echo GIT_SERVICE_BRANCH=service >> $GITHUB_ENV
-      - name: Attempt Clone
-        run: |
-          git clone https://${{secrets.PAT}}@github.com/${{ github.repository }}.git
-          cd ${GITHUB_REPOSITORY_NAME}
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: Setup Git Config
         run: |
           git config user.name ${{ github.actor }}

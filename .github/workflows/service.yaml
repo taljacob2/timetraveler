@@ -10,14 +10,15 @@ jobs:
           echo GITHUB_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
           echo GIT_SERVICE_BRANCH=service >> $GITHUB_ENV
       - name: Attempt Clone
-        run: git clone https://${{secrets.PAT}}@github.com/${{ github.repository }}.git
+        run: |
+          git clone https://${{secrets.PAT}}@github.com/${{ github.repository }}.git
+          cd ${GITHUB_REPOSITORY_NAME}
       - name: Setup Git Config
         run: |
           git config --global user.name ${{ github.actor }}
           git config --global user.email "${{ github.actor }}@noreply.github.com"
           git config alias.switchoc '!f() { git switch $1 2>/dev/null || git switch -c $1; }; f'
       - run: |
-          cd ${GITHUB_REPOSITORY_NAME}
           # git remote set-url origin https://${{secrets.PAT}}@github.com/${{ github.repository }}.git
           # git pull
           git switchoc ${GIT_SERVICE_BRANCH}

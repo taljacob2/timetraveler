@@ -15,8 +15,8 @@ jobs:
           cd ${GITHUB_REPOSITORY_NAME}
       - name: Setup Git Config
         run: |
-          git config --global user.name ${{ github.actor }}
-          git config --global user.email "${{ github.actor }}@noreply.github.com"
+          git config user.name ${{ github.actor }}
+          git config user.email "${{ github.actor }}@noreply.github.com"
           git config alias.switchoc '!f() { git switch $1 2>/dev/null || git switch -c $1; }; f'
       - run: |
           # git remote set-url origin https://${{secrets.PAT}}@github.com/${{ github.repository }}.git

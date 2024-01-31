@@ -7,8 +7,8 @@ jobs:
     steps:
       - name: Initialize Environment Variables
         run: |
-          echo ::set-env name=GITHUB_REPOSITORY_NAME::${GITHUB_REPOSITORY#*/}
-          echo ::set-env name=GIT_SERVICE_BRANCH::service
+          echo GITHUB_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/} >> $GITHUB_ENV
+          echo GIT_SERVICE_BRANCH=service >> $GITHUB_ENV
       - name: Setup Git Config
         run: |
           git config --global user.name ${{ github.actor }}
